@@ -1,6 +1,6 @@
 library(dplyr)
 
-loanFiles <- list.files("../../data/loan_raw/", full.names = TRUE)
+loanFiles <- list.files("../data/raw/", full.names = TRUE)
 
 # loading a sample of the first file in the directory
 loanSample <- read.csv(loanFiles[1], sep = ",", nrows = 10000)
@@ -9,10 +9,12 @@ str(loanSample)
 summary(loanSample)
 
 # NA count by columns
-na_count <- sapply(loanSample, function(y) sum(length(which(is.na(y))))) %>% data.frame
+na_count <- sapply(loanSample, function(y) sum(length(which(is.na(y))))) %>% 
+  data.frame
 
 # keeping top 20 variables (with more than 50% values)
-loanSample <- loanSample %>% select(colnames(loanSample)[na_count$. < 5000])
+loanSample <- loanSample %>% 
+  select(colnames(loanSample)[na_count$. < 5000])
 
 columnsOfInterest <- c("funded_amnt_inv", "term", "issue_d","loan_status", "last_pymnt_d", 
                        "last_pymnt_amnt", "next_pymnt_d", "installment", "total_pymnt_inv",
@@ -36,9 +38,13 @@ for (file in loanFiles){
 
 saveRDS(df, "../../data/loan_clean/allLoanTop20.rds")
 
-df$loan_status %>% table
+df$loan_status %>% 
+  table
 
-df %>% filter(loan_status == "Late (31-120 days)") %>% select(next_pymnt_d) %>% table
+df %>% 
+  filter(loan_status == "Late (31-120 days)") %>% 
+  select(next_pymnt_d) %>% 
+  View
 
 
 
