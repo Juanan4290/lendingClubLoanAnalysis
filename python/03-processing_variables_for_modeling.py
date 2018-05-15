@@ -4,7 +4,7 @@
 # Processing Variables For Modeling
 # ==================
 
-# In[1]:
+# In[181]:
 
 
 # remove warnings
@@ -14,13 +14,15 @@ warnings.filterwarnings('ignore')
 import numpy as np
 import pandas as pd
 
+import matplotlib.pyplot as plt; plt.style.use("ggplot")
+
 from collections import Counter
 
 
 # In[2]:
 
 
-loans = pd.read_csv("../data/clean/loans.csv", sep = "^")
+loans = pd.read_csv("../data/clean/loans.csv", sep = "^").sample(200000)
 
 
 # ### 01 - Target: Loan Status
@@ -183,6 +185,13 @@ loans['issue_d'] = loans['issue_d'].astype('category')
 loans['issue_d'].describe()
 
 
+# In[45]:
+
+
+categorical_variables = ['issue_d', 'term', 'grade', 'emp_title', 'emp_length', 
+                         'home_ownership', 'addr_state', 'application_type']
+
+
 # #### 3.4 - Numeric Variables
 
 # In[22]:
@@ -252,7 +261,7 @@ def detect_outliers(df,n,features):
     return multiple_outliers
 
 
-# In[32]:
+# In[27]:
 
 
 # detect outliers from numerical features 
@@ -261,10 +270,16 @@ outliers_to_drop = detect_outliers(loans,2,numerical_variables)
 print("There are {} outliers from numerical features".format(len(outliers_to_drop)))
 
 
-# In[33]:
+# In[32]:
 
 
 loans = loans.drop(outliers_to_drop, axis=0)
+
+
+# In[33]:
+
+
+loans.shape
 
 
 # In[34]:
@@ -281,55 +296,242 @@ loans[numerical_variables].describe()
 loans.isnull().sum()
 
 
-# In[37]:
+# In[36]:
 
 
 loans = loans.fillna(method = 'ffill')
 
 
-# In[38]:
+# In[37]:
 
 
 loans.isnull().sum()
 
 
-# ### 04 - Data for modeling
+# ### 04 -Model
 
-# In[39]:
+# In[175]:
+
+
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+
+from sklearn.model_selection import train_test_split, GridSearchCV, StratifiedKFold, cross_val_score
+from sklearn.metrics import roc_curve, roc_auc_score, confusion_matrix, precision_recall_fscore_support
+
+
+# In[55]:
 
 
 data_for_modeling = loans[(loans['loan_status'] == 0) |
                           (loans['loan_status'] == 1)]
 
 
-# __Get dummies__:
-
-# In[40]:
-
-
-data_for_modeling = pd.get_dummies(data_for_modeling, columns = categorical_variables)
-
-
-# In[41]:
-
-
-data_for_modeling.head()
-
-
-# In[42]:
+# In[56]:
 
 
 data_for_modeling.shape
 
 
-# In[43]:
+# In[57]:
 
 
-data_for_modeling.to_csv("../data/clean/loans_train_test.csv", sep = "^", index = False)
+data_for_modeling.dtypes
 
 
-# In[44]:
+# In[58]:
 
 
-get_ipython().system('ls -lh ../data/clean')
+data_for_modeling.head()
+
+
+# In[59]:
+
+
+categorical_variables
+
+
+# In[60]:
+
+
+categorical_for_modeling = ['term', 'grade', 'emp_title', 'emp_length', 'home_ownership', 
+                            'application_type']
+
+
+# In[61]:
+
+
+data_for_modeling = pd.get_dummies(data_for_modeling, columns = categorical_for_modeling)
+
+
+# In[62]:
+
+
+data_for_modeling = data_for_modeling.drop(["issue_d", "addr_state"], axis = 1)
+
+
+# In[63]:
+
+
+data_for_modeling.head()
+
+
+# In[47]:
+
+
+numerical_variables
+
+
+# In[212]:
+
+
+data_for_modeling = data_for_modeling.drop(['last_pymnt_amnt', 'total_pymnt_inv'], axis = 1)
+
+
+# In[213]:
+
+
+data_for_modeling.head()
+
+
+# __Train / Test split:__
+
+# In[214]:
+
+
+X = data_for_modeling.loc[:, data_for_modeling.columns!='loan_status']
+
+
+# In[215]:
+
+
+y = data_for_modeling['loan_status']
+
+
+# In[216]:
+
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=42)
+
+
+# __Prior__:
+
+# In[217]:
+
+
+y.value_counts()[0] / len(y)
+
+
+# __Random Forest__:
+
+# In[218]:
+
+
+random_forest = RandomForestClassifier()
+
+
+# In[219]:
+
+
+random_forest.fit(X_train, y_train)
+
+
+# Feature importance:
+
+# In[220]:
+
+
+features = pd.DataFrame({'feature':X_train.columns,
+                         'importance':random_forest.feature_importances_})
+
+features = features.set_index('feature').sort_values('importance', ascending=True)
+
+features.plot(kind='barh',figsize=(15,15)).set_title('Feature importance')
+
+
+# __Model Evaluation__
+
+# ROC Curve:
+
+# In[235]:
+
+
+y_scores = random_forest.predict_proba(X_test)
+
+y_scores = pd.DataFrame(y_scores).loc[:,1]
+
+
+# In[236]:
+
+
+fpr, tpr, _ = roc_curve(y_test, y_scores)
+
+
+# In[237]:
+
+
+plt.plot(fpr, tpr, color='darkorange', lw=2, label='ROC curve (area = %0.2f)' % auc(fpr, tpr))
+plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+plt.xlim([-0.05, 1.0])
+plt.ylim([0.0, 1.05])
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('ROC Curve')
+plt.legend(loc="lower right")
+
+
+# AUC:
+
+# In[225]:
+
+
+np.array(y_scores)
+
+
+# In[226]:
+
+
+np.array(y_test)
+
+
+# In[227]:
+
+
+roc_auc_score(y_test, y_scores)
+
+
+# Confusion Matrix
+
+# In[228]:
+
+
+y_predictions = random_forest.predict(X_test)
+
+
+# In[229]:
+
+
+confusion_matrix(y_test, y_predictions)
+
+
+# In[238]:
+
+
+(14689+704)/(14689+704+3371+737)
+
+
+# Recall:
+
+# In[230]:
+
+
+precision_recall_fscore_support(y_test, y_predictions) [0]
+
+
+# Precision:
+
+# In[231]:
+
+
+precision_recall_fscore_support(y_test, y_predictions) [1]
 
