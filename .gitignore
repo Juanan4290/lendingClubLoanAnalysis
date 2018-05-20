@@ -1,0 +1,6 @@
+.spyproject/
+data/clean/
+data/loans_sample.csv
+data/raw/
+doc/.ipynb_checkpoints/
+src/processing/__pycache__/
