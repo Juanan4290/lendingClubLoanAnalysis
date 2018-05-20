@@ -4,3 +4,7 @@ data/loans_sample.csv
 data/raw/
 doc/.ipynb_checkpoints/
 src/processing/__pycache__/
+doc/processing/.ipynb_checkpoints/
+src/__pycache__/
+src/utils.py
+
