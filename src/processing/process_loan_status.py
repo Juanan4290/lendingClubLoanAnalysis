@@ -5,19 +5,17 @@ Created on Sun May 20 17:13:58 2018
 
 @author: juanan
 """
+from src.utils import loan_status_to_numeric
 
-def process_loan_status(loan_status):
+def process_loan_status(loans):
+    """
+    Takes loan dataframe, process loan_status and returns loans dataframe
+    """
     
-    loan_status_dict = {
-    "Current": 2,
-    "Fully Paid": 0,
-    "Charged Off": 1,
-    "Late (31-120 days)": 2,
-    "In Grace Period": 2,
-    "Late (16-30 days)": 2,
-    "Does not meet the credit policy. Status:Fully Paid": 0,
-    "Does not meet the credit policy. Status:Charged Off": 1,
-    "Default": 1
-    }
+    # transform loan_status string to numeric
+    loans['loan_status'] = loans['loan_status'].map(loan_status_to_numeric)
+
+    # keep only unpaid loans (1) and fully paid loans (0)    
+    loans = loans[loans['loan_status'] < 2]
     
-    return loan_status_dict[loan_status]
+    return loans
