@@ -1,10 +1,13 @@
+# libraries
 library(dplyr)
 
-loanFiles <- list.files("../data/raw/", full.names = TRUE)
+# read data
+loanFiles <- list.files("~/Documentos/ja-github/loan-data-analysis/data/raw/", full.names = TRUE)
 
 # loading a sample of the first file in the directory
 loanSample <- read.csv(loanFiles[1], sep = ",", nrows = 10000)
 
+# Dataset sumary
 str(loanSample)
 summary(loanSample)
 
@@ -25,19 +28,22 @@ columnsOfInterest <- c("funded_amnt_inv", "term", "issue_d","loan_status", "last
 df <- data.frame(matrix(ncol = length(columnsOfInterest), nrow = 0))
 colnames(df) <- columnsOfInterest
 
-
+# Reading all datasets
 for (file in loanFiles){
   
   print(paste("Reading File:", file))
   
   tmpDF <- read.csv(loanFiles[1], sep = ",")
-  tmpDF <- tmpDF %>% select(columnsOfInterest)
+  tmpDF <- tmpDF %>% 
+    select(columnsOfInterest)
   
   df <- rbind(df,tmpDF)
 }
 
+# Saving DataSet
 saveRDS(df, "../../data/loan_clean/allLoanTop20.rds")
 
+# Some exploration of the data set
 df$loan_status %>% 
   table
 
@@ -45,7 +51,3 @@ df %>%
   filter(loan_status == "Late (31-120 days)") %>% 
   select(next_pymnt_d) %>% 
   View
-
-
-
-
