@@ -1,3 +1,6 @@
+data/.Rhistory
+data/loans_sample_processed.csv
+data/rstudio-xenial-1.1.383-amd64.deb
 .spyproject/
 data/clean/
 data/loans_sample.csv
