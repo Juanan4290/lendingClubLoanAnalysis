@@ -8,41 +8,14 @@ library(ROCR)
 
 ##### 2. Read Data #####
 
-loans <- read.csv("~/Documentos/ja-github/loan-data-analysis/data/clean/loans.csv", sep="^")
-
-head(loans)
-str(loans)
-
-
-##### 3. Cleaning Data #####
-
-set.seed(4290)
-loans <- loans %>% 
-  filter((loan_status == "Fully Paid")|(loan_status == "Charged Off")) %>% 
-  sample_n(100000)
-
-loans$loan_status <- as.character(loans$loan_status)
-
-loans$loan_status[loans$loan_status == "Fully Paid"] <- 0
-loans$loan_status[loans$loan_status == "Charged Off"] <- 1
-
-loans$loan_status <- as.numeric(loans$loan_status)
-
-loans$int_rate <- sapply(loans$int_rate, function(i) str_sub(i, 1, -2) %>% 
-                           as.numeric)
-
-columnsToRemove <- c("issue_d", "emp_title", "title", "zip_code", "addr_state")
-loans <- loans[,!(colnames(loans) %in% columnsToRemove)]
-loans <- loans[complete.cases(loans),]
-
-##### 4. Dataset summary #####
+loans <- readRDS("data/loans_sample_clean.rds")
 
 head(loans)
 str(loans)
 summary(loans)
 
 
-##### 5. Train / Test split #####
+##### 3. Train / Test split #####
 
 set.seed(4290)
 sampleSplit = sample.split(loans$loan_status, SplitRatio = .75)
@@ -50,15 +23,15 @@ loansTrain = subset(loans, sampleSplit == TRUE)
 loansTest = subset(loans, sampleSplit == FALSE)
 
 
-##### 6. Model and feature selection #####
+##### 5. Model and feature selection #####
 
 model=glm(loan_status~., data=loansTrain,family=binomial(link="logit"))
 summary(model)
 
-finalModel=step(model,direction="both",trace=1)
+finalModel <- step(model,direction="both",trace=1)
 summary(finalModel)
 anova(finalModel,model)
-
+finalModel <- model
 
 ##### 7. Model Evaluation #####
 
