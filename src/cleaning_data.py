@@ -47,7 +47,7 @@ print("Selecting variables...")
 columns_of_interest = ['num_bc_sats', 'num_rev_tl_bal_gt_0', 'grade', 'avg_cur_bal', 'pub_rec_bankruptcies', 
                        'num_rev_accts', 'tax_liens', 'funded_amnt_inv', 'delinq_2yrs', 'total_bal_ex_mort',
                        'pct_tl_nvr_dlq', 'disbursement_method', 'fico_range_low', 'verification_status', 'delinq_amnt',
-                       'purpose', 'loan_amnt', 'installment', 
+                       'purpose', 'loan_amnt', 'installment', 'last_fico_range_high',
                        'fico_range_high', 'annual_inc', 'term', 'int_rate', 'emp_length',
                        'revol_bal', 'application_type', 'num_bc_tl', 'num_sats', 'tot_hi_cred_lim', 
                        'tot_coll_amt', 'initial_list_status', 'bc_open_to_buy', 'total_bc_limit', 

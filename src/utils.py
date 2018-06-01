@@ -3,8 +3,10 @@
 """
 Created on Sun May 20 19:04:10 2018
 
-@author: juanan
+@author: Juan Antonio Morales
 """
+
+from sklearn.preprocessing import scale, MinMaxScaler, StandardScaler, RobustScaler
 
 def reject_outliers(data, numeric_features, z_score = 2):
     """
@@ -30,3 +32,37 @@ def reject_outliers(data, numeric_features, z_score = 2):
     result = data[~indexes_to_remove_mask]
     
     return result
+
+def normalize_variables(data, normalization = "robust"):
+    """
+    Parameters
+    ---------
+    data: DataFrame to normalize
+    normalization: type of normalization to perform: "robust", "standard" and "minMax"
+    
+    Returns
+    ---------
+    result: DataFrame with normalized variables
+    """
+    
+    # numeric variables except target
+    variables = data.loc[:,data.columns != "loan_status"]
+    variables = variables._get_numeric_data().columns
+    
+    # normalization methods
+    robust = RobustScaler()
+    standard = StandardScaler()
+    minMax = MinMaxScaler()
+    
+    normalization_dict = {"robust": robust,
+                          "standard": standard,
+                          "minMax": minMax}
+    
+    scaler = normalization_dict[normalization]
+    
+    # normalization
+    print(scaler)
+    scaler.fit(data[variables])
+    data[variables] = scaler.transform(data[variables])
+    
+    return data
