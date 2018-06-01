@@ -15,9 +15,10 @@ import pandas as pd
 
 ### 2. read data ###
 # local directory: "/media/juanan/DATA/loan_data_analysis/data/raw/accepted_2007_to_2017Q3.csv.gz"
+# relative directory:"../data/accepted_2007_to_2017Q3.csv.gz" 
 print("Reading Data...")
 
-loans = pd.read_csv("../data/accepted_2007_to_2017Q3.csv.gz")
+loans = pd.read_csv("/media/juanan/DATA/loan_data_analysis/data/raw/accepted_2007_to_2017Q3.csv.gz")
 
 
 ### 3. cleaning data ###
@@ -77,6 +78,7 @@ loans[numeric_variables] = loans[numeric_variables].fillna(method = "ffill")
 ### 6. writing clean data ###
 print("Writing data to disk...")
 # local directory: "/media/juanan/DATA/loan_data_analysis/data/loans_processed.csv"
+# relative directory: "../data/loans_processed.csv"
 print("Final dataset with {} rows and {} columns".format(loans.shape[0], loans.shape[1]))
-loans.to_csv("../data/loans_processed.csv", sep = "^", index = False)
+loans.to_csv("/media/juanan/DATA/loan_data_analysis/data/loans_processed.csv", sep = "^", index = False)
 print("Done!")

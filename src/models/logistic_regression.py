@@ -71,3 +71,5 @@ def logistic_regression(data, C = 1, normalization = "robust"):
     print("Precision: {}".format(precision_recall_fscore_support(y_test, y_test_pred)[1]))
     print("------------------------")
     
+    return log_reg
+    
