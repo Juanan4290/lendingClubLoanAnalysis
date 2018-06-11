@@ -14,8 +14,6 @@ import pandas as pd
 
 
 ### 2. read data ###
-# local directory: "/media/juanan/DATA/loan_data_analysis/data/raw/accepted_2007_to_2017Q3.csv.gz"
-# relative directory:"../data/accepted_2007_to_2017Q3.csv.gz" 
 print("Reading Data...")
 
 loans = pd.read_csv("/media/juanan/DATA/loan_data_analysis/data/raw/accepted_2007_to_2017Q3.csv.gz")
@@ -48,7 +46,7 @@ print("Selecting variables...")
 columns_of_interest = ['num_bc_sats', 'num_rev_tl_bal_gt_0', 'grade', 'avg_cur_bal', 'pub_rec_bankruptcies', 
                        'num_rev_accts', 'tax_liens', 'funded_amnt_inv', 'delinq_2yrs', 'total_bal_ex_mort',
                        'pct_tl_nvr_dlq', 'disbursement_method', 'fico_range_low', 'verification_status', 'delinq_amnt',
-                       'purpose', 'loan_amnt', 'installment', 'last_fico_range_high',
+                       'purpose', 'loan_amnt', 'installment',
                        'fico_range_high', 'annual_inc', 'term', 'int_rate', 'emp_length',
                        'revol_bal', 'application_type', 'num_bc_tl', 'num_sats', 'tot_hi_cred_lim', 
                        'tot_coll_amt', 'initial_list_status', 'bc_open_to_buy', 'total_bc_limit', 
@@ -68,11 +66,11 @@ loans[numeric_variables] = loans[numeric_variables].apply(lambda i: i.fillna(i.m
 
 
 ### 5. processing categorical variables ###
-print("Processing categorical variables (no dummies)...")
+print("Processing categorical variables...")
 
 categorical_variables = loans.select_dtypes(include="object").columns
 ## fill NA's to last valid observation
-loans[numeric_variables] = loans[numeric_variables].fillna(method = "ffill")
+loans[categorical_variables] = loans[categorical_variables].fillna(method = "ffill")
 
 
 ### 6. writing clean data ###
