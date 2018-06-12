@@ -7,6 +7,8 @@ Created on Sun May 20 19:04:10 2018
 """
 
 from sklearn.preprocessing import scale, MinMaxScaler, StandardScaler, RobustScaler
+from sklearn.metrics import roc_auc_score, confusion_matrix, precision_recall_fscore_support, \
+                            accuracy_score
 
 def reject_outliers(data, numeric_features, z_score = 2):
     """
@@ -32,6 +34,7 @@ def reject_outliers(data, numeric_features, z_score = 2):
     result = data[~indexes_to_remove_mask]
     
     return result
+
 
 def normalize_variables(data, normalization = "robust"):
     """
@@ -66,3 +69,77 @@ def normalize_variables(data, normalization = "robust"):
     data[variables] = scaler.transform(data[variables])
     
     return data
+
+
+def categorical_to_numeric(data, categorical_variable, target):
+    """
+    Parameters
+    ---------
+    data: DataFrame for transforming categorical to numeric
+    categorical_variable: variable we want to transform to the mean value of the target.
+    target: target of the data
+    
+    Returns:
+    ---------
+    result: numeric variable        
+    """    
+    
+    categorical_dict =  dict(data.groupby(categorical_variable)[target].mean())
+    
+    result = data[categorical_variable].map(lambda i: categorical_dict[i])
+    
+    return result
+
+
+def model_evaluation(y_train, y_test, y_scores_train, y_scores_test, threshold = 0.5):
+    """
+    Parameters
+    ---------
+    y_train: true labels of the train set.
+    y_test: true labels of the test set.
+    y_scores_train: model scores for the train set prediction
+    y_cores_test: model scores for the test set prediction
+    threshold: boundary to classify predictions
+    
+    Returns:
+    ---------
+    result:list with the following metrics: 
+          [auc_train, auc_test, accuracy_train, accuracy_test, 
+          recall_train, recall_test, precision_train, precision_test]
+    """
+    
+    # predictions
+    y_train_pred = y_scores_train > threshold
+    y_test_pred = y_scores_test > threshold
+    
+    # auc
+    auc_train = roc_auc_score(y_train, y_scores_train)
+    auc_test = roc_auc_score(y_test, y_scores_test)
+    
+    print("AUC:")
+    print("AUC in the train set: {}".format(auc_train))
+    print("AUC in the test set: {}".format(auc_test))
+    print("------------------------")
+    
+    # confusion matrix
+    print("Confusion Matrix:")
+    print(confusion_matrix(y_test, y_test_pred))
+    
+    # accuracy
+    accuracy_train = accuracy_score(y_train, y_train_pred)
+    accuracy_test = accuracy_score(y_test, y_test_pred)
+    print("Accuracy: {}".format(accuracy_test))
+    # recall
+    recall_train = precision_recall_fscore_support(y_train, y_train_pred)[0][1]
+    recall_test = precision_recall_fscore_support(y_test, y_test_pred)[0][1]
+    print("Recall: {}".format(recall_test))
+    # precision
+    precision_train = precision_recall_fscore_support(y_train, y_train_pred)[1][1]
+    precision_test = precision_recall_fscore_support(y_test, y_test_pred)[1][1]
+    print("Precision: {}".format(precision_test))
+    print("------------------------")
+    
+    result = [auc_train, auc_test, accuracy_train, accuracy_test, recall_train, recall_test,
+              precision_train, precision_test]
+    
+    return result
