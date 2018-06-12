@@ -1,3 +1,12 @@
+doc/04a-SGD.ipynb
+doc/5-ensamble.ipynb
+output/
+src/R/.RData
+src/R/.Rhistory
+src/R/R.Rproj
+src/R/gz2rds.R
+src/feature_engineering/__pycache__/
+src/models/__pycache__/
 data/.Rhistory
 data/loans_sample_processed.csv
 data/rstudio-xenial-1.1.383-amd64.deb
@@ -9,4 +18,4 @@ doc/.ipynb_checkpoints/
 src/processing/__pycache__/
 doc/processing/.ipynb_checkpoints/
 src/__pycache__/
-
+.Rproj.user
