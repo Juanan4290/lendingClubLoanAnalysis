@@ -12,7 +12,7 @@ from sklearn.model_selection import train_test_split
 
 from src.utils import normalize_variables, model_evaluation
 
-def logistic_regression(data, normalization = "robust"):
+def logistic_regression(data, normalization = "standard"):
     """
     Parameters
     ---------
@@ -55,4 +55,3 @@ def logistic_regression(data, normalization = "robust"):
     metrics = model_evaluation(y_train, y_test, y_scores_train, y_scores_test)
     
     return log_reg, metrics
-    

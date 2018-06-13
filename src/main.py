@@ -15,14 +15,16 @@ from src.utils import categorical_to_numeric, reject_outliers
 from src.models.logistic_regression import logistic_regression
 from src.models.random_forest import random_forest
 from src.models.xg_boost import xg_boost
+from src.models.nn_autoencoder import nn_autoencoder
 
 import pickle
+import sys
 
 if __name__ == '__main__':
 
     ### 2. read data ###
     loans = pd.read_csv("/media/juanan/DATA/loan_data_analysis/data/loans_processed.csv", sep = "^")\
-                        .sample(20000)
+                        .sample(200000)
           
     ### 3. pre-processing
     # numeric variables
@@ -35,10 +37,15 @@ if __name__ == '__main__':
     for variable in categorical_variables:
         loans[variable] = categorical_to_numeric(loans, variable, "loan_status")
     
+    ### 4d. autoencoder
+    print("AUTOENCODER FOR FEATURE EXTRACTION -------------------")
+    nn_logit, nn_logit_metrics = nn_autoencoder(loans, 150, 300, 50, 64, 0.001, "minMax")
+    sys.exit()
+    
     ### 4a. logistic regression
     print("LOGISTIC REGRESSION MODEL ----------------------------")
     log_reg, logit_metrics = logistic_regression(loans, normalization = "standard")
-    
+        
     ### 4b. random forest
     print("RANDOM FOREST MODEL ----------------------------")
     random_forest, rf_metrics = random_forest(loans)
@@ -52,12 +59,15 @@ if __name__ == '__main__':
     # metrics
     metrics = np.transpose(pd.concat([logit_metrics, 
                                       rf_metrics,
-                                      xg_metrics], axis = 1))
+                                      xg_metrics,
+                                      nn_logit_metrics], axis = 1))
+    
     metrics.columns = ["auc_train", "auc_test", "accuracy_train", "accuracy_test",
                        "recall_train", "recall_test", "precision_train", "precision_test"]
     metrics = metrics.rename(index={0: "logit",
                                     1: "rf",
-                                    2: "xg"})
+                                    2: "xg",
+                                    3: "autoencoder_logit"})
     
     metrics.to_csv("../output/metrics.csv", sep = "^", index = False)
     
@@ -65,10 +75,4 @@ if __name__ == '__main__':
     pickle.dump(log_reg, open("../output/models/logistic_regression_model.sav", "wb"))
     pickle.dump(random_forest, open("../output/models/random_forest_model.sav", "wb"))
     pickle.dump(xg_boost, open("../output/models/xg_boost_model.sav", "wb"))
-    
-    
-    
-    
-    
-    
-                         
+    pickle.dump(nn_logit, open("../output/models/nn_logit_model.sav", "wb"))
