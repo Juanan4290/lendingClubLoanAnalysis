@@ -12,6 +12,7 @@ import pandas as pd
 
 from src.utils import categorical_to_numeric, reject_outliers
 from src.models.logistic_regression import logistic_regression
+from src.models.random_forest import random_forest
 
 
 if __name__ == '__main__':
@@ -19,7 +20,7 @@ if __name__ == '__main__':
     ### 2. read data ###
     loans = pd.read_csv("/media/juanan/DATA/loan_data_analysis/data/loans_processed.csv", sep = "^")\
                         .sample(20000)
-    
+          
     ### 3. pre-processing
     # numeric variables
     numeric_variables = loans._get_numeric_data().columns
@@ -31,7 +32,11 @@ if __name__ == '__main__':
     for variable in categorical_variables:
         loans[variable] = categorical_to_numeric(loans, variable, "loan_status")
     
-    ### 4. logistic regression
+    ### 4a. logistic regression
     print("LOGISTIC REGRESSION MODEL ----------------------------")
     log_reg, logit_metrics = logistic_regression(loans, normalization = "standard")
+    
+    ### 4b. random forest
+    print("RANDOM FOREST MODEL ----------------------------")
+    random_forest, rf_metrics = random_forest(loans)
     

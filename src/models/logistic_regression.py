@@ -17,12 +17,13 @@ def logistic_regression(data, normalization = "robust"):
     Parameters
     ---------
     data: DataFrame to fit logistic regression
-    C = regularization parameter
     normalization: type of normalization to perform: "robust", "standard" and "minMax"
     
     Returns
     ---------
-    result: evaluation model: AUC in train and test, confusion matrix, accuracy, recall and precision (treshold = 0.5)
+    result: logistic regression model and evaluation model: 
+            AUC in train and test, confusion matrix, accuracy, 
+            recall and precision (treshold = 0.5)
     """
     ### pre-process
     print("Preprocessing...")
@@ -36,7 +37,7 @@ def logistic_regression(data, normalization = "robust"):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
     
     ### model
-    print("Fitting the model...")
+    print("Fitting logistic regression...")
     # logistic regression
     log_reg = LogisticRegression(penalty='l2', C = 10)
     log_reg.fit(X_train, y_train)
