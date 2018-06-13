@@ -6,6 +6,8 @@ Created on Sun May 20 19:04:10 2018
 @author: Juan Antonio Morales
 """
 
+import pandas as pd
+
 from sklearn.preprocessing import scale, MinMaxScaler, StandardScaler, RobustScaler
 from sklearn.metrics import roc_auc_score, confusion_matrix, precision_recall_fscore_support, \
                             accuracy_score
@@ -139,7 +141,7 @@ def model_evaluation(y_train, y_test, y_scores_train, y_scores_test, threshold =
     print("Precision: {}".format(precision_test))
     print("------------------------")
     
-    result = [auc_train, auc_test, accuracy_train, accuracy_test, recall_train, recall_test,
-              precision_train, precision_test]
+    result = pd.Series([auc_train, auc_test, accuracy_train, accuracy_test, recall_train, recall_test,
+              precision_train, precision_test])
     
     return result

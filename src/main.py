@@ -8,12 +8,15 @@ Created on Sun May 20 17:17:04 2018
 
 ### 1. Libraries ###
 
+import numpy as np
 import pandas as pd
 
 from src.utils import categorical_to_numeric, reject_outliers
 from src.models.logistic_regression import logistic_regression
 from src.models.random_forest import random_forest
+from src.models.xg_boost import xg_boost
 
+import pickle
 
 if __name__ == '__main__':
 
@@ -40,3 +43,32 @@ if __name__ == '__main__':
     print("RANDOM FOREST MODEL ----------------------------")
     random_forest, rf_metrics = random_forest(loans)
     
+    ### 4c. xg boost
+    print("XG BOOST MODEL ----------------------------")
+    xg_boost, xg_metrics = xg_boost(loans)
+    
+    
+    ### 5. output
+    # metrics
+    metrics = np.transpose(pd.concat([logit_metrics, 
+                                      rf_metrics,
+                                      xg_metrics], axis = 1))
+    metrics.columns = ["auc_train", "auc_test", "accuracy_train", "accuracy_test",
+                       "recall_train", "recall_test", "precision_train", "precision_test"]
+    metrics = metrics.rename(index={0: "logit",
+                                    1: "rf",
+                                    2: "xg"})
+    
+    metrics.to_csv("../output/metrics.csv", sep = "^", index = False)
+    
+    # models
+    pickle.dump(log_reg, open("../output/models/logistic_regression_model.sav", "wb"))
+    pickle.dump(random_forest, open("../output/models/random_forest_model.sav", "wb"))
+    pickle.dump(xg_boost, open("../output/models/xg_boost_model.sav", "wb"))
+    
+    
+    
+    
+    
+    
+                         

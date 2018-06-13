@@ -55,8 +55,8 @@ def random_forest(data):
     y_scores_test = pd.DataFrame(random_forest.predict_proba(X_test)).loc[:,1]
     
     # writing scores
-    y_scores_train.to_csv("../output/y_scores_train_rf.csv", sep = "^")
-    y_scores_test.to_csv("../output/y_scores_test_rf.csv", sep = "^")
+    y_scores_train.to_csv("../output/scores/y_scores_train_rf.csv", sep = "^")
+    y_scores_test.to_csv("../output/scores/y_scores_test_rf.csv", sep = "^")
     
     metrics = model_evaluation(y_train, y_test, y_scores_train, y_scores_test)
     
