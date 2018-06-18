@@ -1,0 +1,13 @@
+src/R/.RData
+src/R/.Rhistory
+src/R/R.Rproj
+src/models/__pycache__/
+data/.Rhistory
+data/rstudio-xenial-1.1.383-amd64.deb
+.spyproject/
+data/clean/
+data/raw/
+doc/.ipynb_checkpoints/
+src/__pycache__/
+.Rproj.user
+bin
