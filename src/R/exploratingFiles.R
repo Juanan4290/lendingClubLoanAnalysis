@@ -2,7 +2,7 @@
 library(dplyr)
 
 # read data
-loanFiles <- list.files("~/Documentos/ja-github/loan-data-analysis/data/raw/", full.names = TRUE)
+loanFiles <- list.files("/media/juanan/DATA/loan_data_analysis/data/raw", full.names = TRUE)
 
 # loading a sample of the first file in the directory
 loanSample <- read.csv(loanFiles[1], sep = ",", nrows = 10000)

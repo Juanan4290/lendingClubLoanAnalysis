@@ -1,7 +1,7 @@
 library(dplyr)
 
 # Read Data
-loans = readRDS("/media/juanan/DATA/loan_data_analysis/data/raw/raw_loans_2007_to_2017Q3.rds")
+loans = readRDS("/media/juanan/DATA/loan_data_analysis/data/clean/loans.rds")
 
 # Selecting fico columns and dates (loan issued and last payment)
 ficoStudy <- loans %>% 
