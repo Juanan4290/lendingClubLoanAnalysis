@@ -32,9 +32,9 @@ __Main Libraries__:
 
 - `dplyr`: this package provides simple “verbs”, functions that correspond to the most common data manipulation tasks, to help you translate your thoughts into codeeasy-to-use data structures and perfect for quick data analysis in R.
 - `pandas`: a high-performance library, easy-to-use data structures and data analysis tools for the Python programming language.
-- `seaborn`: for statistical data visualization based on `matplotlib`.
-- `sklearn`: machine learning library that provides efficient tools for data mining and data analysis built on `NumPy` and `SciPy`.
-- `TensorFlow`: 
+- `seaborn`: for statistical data __visualizations__ based on `matplotlib`.
+- `sklearn`: machine learning library that provides efficient tools for data mining and data analysis built on `NumPy` and `SciPy`. __Preprocessing__ module was used for feature extraction and normalization and __Model selection__ module for comparing, validating and choosing parameters and models. Logistic Regression and Random Forest algorithms from __Classification__ module as well, while `xgboost` library was used for __XG Boost__ algorithm.
+- `TensorFlow`: A Deep Learning library that has been used for __Neural Network Autoencoder__ for feature extraction.
 
 ## About the author:
 
