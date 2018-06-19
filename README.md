@@ -37,6 +37,7 @@ __Main Libraries__:
 - `seaborn`: for statistical data __visualizations__ based on `matplotlib`.
 - `sklearn`: machine learning library that provides efficient tools for data mining and data analysis built on `NumPy` and `SciPy`. __Preprocessing__ module was used for feature extraction and normalization and __Model selection__ module for comparing, validating and choosing parameters and models. Logistic Regression and Random Forest algorithms from __Classification__ module as well, while `xgboost` library was used for __XG Boost__ algorithm.
 - `TensorFlow`: A Deep Learning library that has been used for __Neural Network Autoencoder__ for feature extraction.
+- `flask` and `gunicorn`: to deploy Machine Learning models in Production as APIs.
 
 ## About the author:
 
