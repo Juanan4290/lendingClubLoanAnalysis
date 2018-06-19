@@ -136,19 +136,17 @@ def nn_autoencoder(data, n_hidden_1, n_hidden_2, epochs, batch_size, learning_ra
     print("Loss plot:")
     plt.plot(losses)
     plt.show()
-    
-    # writing enconded data
-    print("Writing encoded data to disk...")
-    y = y.reset_index()['loan_status']
-    x_encoded = pd.DataFrame(X_encoded[0])
-    encoded_data = pd.concat([x_encoded, y], axis = 1)
-    encoded_data.to_csv("../output/encoded_data.csv", sep = "^", index = False)
+
     
     ### logistic regression with encoded input
     print("Fitting logistic regression to encoded data...")
     
+    y = y.reset_index()['loan_status']
+    x_encoded = pd.DataFrame(X_encoded[0])
+    
+    # train/test split
     X_train, X_test, y_train, y_test = train_test_split(x_encoded, y, test_size=0.8)
-    log_reg = LogisticRegression()
+    log_reg = LogisticRegression(C=1000)
     log_reg.fit(X_train, y_train)
     
     ### evaluation

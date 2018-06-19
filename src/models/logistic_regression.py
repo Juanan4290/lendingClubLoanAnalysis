@@ -39,7 +39,7 @@ def logistic_regression(data, normalization = "standard"):
     ### model
     print("Fitting logistic regression...")
     # logistic regression
-    log_reg = LogisticRegression(penalty='l2', C = 10)
+    log_reg = LogisticRegression(penalty='l2', C = 1000)
     log_reg.fit(X_train, y_train)
     
     ### evaluation

@@ -23,8 +23,7 @@ import sys
 if __name__ == '__main__':
 
     ### 2. read data ###
-    loans = pd.read_csv("/media/juanan/DATA/loan_data_analysis/data/loans_processed.csv", sep = "^")\
-                        .sample(200000)
+    loans = pd.read_csv("/media/juanan/DATA/loan_data_analysis/data/loans_processed.csv", sep = "^")
           
     ### 3. pre-processing
     # numeric variables
@@ -37,11 +36,6 @@ if __name__ == '__main__':
     for variable in categorical_variables:
         loans[variable] = categorical_to_numeric(loans, variable, "loan_status")
     
-    ### 4d. autoencoder
-    print("AUTOENCODER FOR FEATURE EXTRACTION -------------------")
-    nn_logit, nn_logit_metrics = nn_autoencoder(loans, 150, 300, 50, 64, 0.001, "minMax")
-    sys.exit()
-    
     ### 4a. logistic regression
     print("LOGISTIC REGRESSION MODEL ----------------------------")
     log_reg, logit_metrics = logistic_regression(loans, normalization = "standard")
@@ -53,6 +47,11 @@ if __name__ == '__main__':
     ### 4c. xg boost
     print("XG BOOST MODEL ----------------------------")
     xg_boost, xg_metrics = xg_boost(loans)
+    
+    ### 4d. autoencoder
+    print("AUTOENCODER FOR FEATURE EXTRACTION -------------------")
+    nn_logit, nn_logit_metrics = nn_autoencoder(loans, 150, 150, 50, 64, 0.001, "minMax")
+    #sys.exit()
     
     
     ### 5. output

@@ -41,13 +41,9 @@ def xg_boost(data):
     print("Fitting xg boost...")
     # logistic regression
     xg_boost = xgb.XGBClassifier(
-            base_score=0.5, booster='gbtree', colsample_bylevel=0.8,
-            colsample_bytree=0.5, gamma=0.25, learning_rate=0.1,
-            max_delta_step=0, max_depth=6, min_child_weight=10.0, missing=None,
-            n_estimators=200, n_jobs=1, nthread=None,
-            objective='binary:logistic', random_state=0, reg_alpha=0,
-            reg_lambda=50.0, scale_pos_weight=1, seed=None, silent=True,
-            subsample=1.0
+            colsample_bylevel=0.6, colsample_bytree=0.5, gamma=0.5,
+            learning_rate=0.2, max_depth=6, min_child_weight=7,
+            reg_lambda=100, subsample=1, n_estimators=200
             )
     xg_boost.fit(X_train, y_train)
     

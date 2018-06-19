@@ -38,13 +38,8 @@ def random_forest(data):
     print("Fitting random forest...")
     # logistic regression
     random_forest = RandomForestClassifier(
-            bootstrap=True, class_weight=None, criterion='entropy',
-            max_depth=None, max_features=9, max_leaf_nodes=None,
-            min_impurity_decrease=0.0, min_impurity_split=None,
-            min_samples_leaf=9, min_samples_split=5,
-            min_weight_fraction_leaf=0.0, n_estimators=200, n_jobs=4,
-            oob_score=False, random_state=None, verbose=0,
-            warm_start=False
+            bootstrap=True, criterion='entropy', max_depth=10, max_features=10, 
+            min_samples_leaf=2, min_samples_split=3, n_estimators=200
             )
     random_forest.fit(X_train, y_train)
     
