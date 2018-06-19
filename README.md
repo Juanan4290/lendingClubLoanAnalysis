@@ -39,6 +39,30 @@ __Main Libraries__:
 - `TensorFlow`: A Deep Learning library that has been used for __Neural Network Autoencoder__ for feature extraction.
 - `flask` and `gunicorn`: to deploy Machine Learning models in Production as API.
 
+## How to run this analysis
+
+__Cleaning and processing data__ (setting local path files):
+```
+python src/cleaning_data.py
+```
+__Training new data__:
+```
+python src/main.py
+```
+__Querying via API__:
+
+- Run the API locally:
+```
+gunicorn --bind 0.0.0.0:8000 src.server:app
+```
+- API request with Python (where _new_data_ is the data for prediction in json format):
+```
+requests.post("http://0.0.0.0:8000/predict",
+              data = json.dumps(new_data),
+              headers = {'Content-Type': 'application/json',
+                         'Accept': 'application/json'}).json()
+```
+
 ## About the author:
 
 __Juan Antonio Morales__ Data Scientist at Idealista/Data
