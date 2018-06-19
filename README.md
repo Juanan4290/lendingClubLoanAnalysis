@@ -14,7 +14,7 @@ The scope of the project is to develop a scoring system consisting of several ma
 
 _Note:_ English is not my native language, so sorry if you see any mistake and do not hesitate to let me know
 
-## Repository Deployment
+## Repository Structure
 
 The organization of the repository is divided into the following folders:
 - __doc__: this folder is made up of several documentation Jupyter Notebooks of the main stages of the project, except the souce code main program.
