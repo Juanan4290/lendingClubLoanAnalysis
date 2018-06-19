@@ -12,6 +12,8 @@ __Objective__
 
 The scope of the project is to develop a scoring system consisting of several machine learning models to predict whether a loan will be paid or not.
 
+_Note:_ English is not my native language, so sorry if you see any mistake and do not hesitate to let me know
+
 ## Repository Deployment
 
 The organization of the repository is divided into the following folders:
