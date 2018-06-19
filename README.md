@@ -28,7 +28,7 @@ __Programming lenguages__:
 
 - __Linux shell__: Shell was used mainly to manage files and run scripts.
 - __R__: It was used as a first quick approach to the project and to perform some hypothesis tests.
-- __Python__: It was used for the Exploratory Data Analysis and the modelling phase. __Jupyter Notebooks__ were used as first exploration to the data and to the model hyperparametrizations over the sample data set. __Spyder__ IDE was used for souce code implementation.
+- __Python__: It was used for the Exploratory Data Analysis and the modelling phase. __Jupyter Notebooks__ were used as first exploration to the data and to the model hyperparametrizations over the sample data set. __Spyder__ IDE was used for souce code implementation. Python was used to deploy prediction system in production as API.
 
 __Main Libraries__:
 
@@ -37,6 +37,7 @@ __Main Libraries__:
 - `seaborn`: for statistical data __visualizations__ based on `matplotlib`.
 - `sklearn`: machine learning library that provides efficient tools for data mining and data analysis built on `NumPy` and `SciPy`. __Preprocessing__ module was used for feature extraction and normalization and __Model selection__ module for comparing, validating and choosing parameters and models. Logistic Regression and Random Forest algorithms from __Classification__ module as well, while `xgboost` library was used for __XG Boost__ algorithm.
 - `TensorFlow`: A Deep Learning library that has been used for __Neural Network Autoencoder__ for feature extraction.
+- `flask` and `gunicorn`: to deploy Machine Learning models in Production as API.
 
 ## About the author:
 
