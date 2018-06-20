@@ -11,7 +11,7 @@ Created on Sun May 20 17:17:04 2018
 import numpy as np
 import pandas as pd
 
-from src.utils import categorical_to_numeric, reject_outliers
+from src.preprocessing_functions import categorical_to_numeric, reject_outliers
 from src.models.logistic_regression import logistic_regression
 from src.models.random_forest import random_forest
 from src.models.xg_boost import xg_boost
@@ -36,10 +36,13 @@ if __name__ == '__main__':
     for variable in categorical_variables:
         loans[variable] = categorical_to_numeric(loans, variable, "loan_status")
     
+    # sort columns in alphabetical order
+    loans = loans[sorted(loans.columns)]
+    
     ### 4a. logistic regression
     print("LOGISTIC REGRESSION MODEL ----------------------------")
     log_reg, logit_metrics = logistic_regression(loans, normalization = "standard")
-        
+    #sys.exit()
     ### 4b. random forest
     print("RANDOM FOREST MODEL ----------------------------")
     random_forest, rf_metrics = random_forest(loans)
@@ -51,7 +54,6 @@ if __name__ == '__main__':
     ### 4d. autoencoder
     print("AUTOENCODER FOR FEATURE EXTRACTION -------------------")
     nn_logit, nn_logit_metrics = nn_autoencoder(loans, 150, 150, 50, 64, 0.001, "minMax")
-    #sys.exit()
     
     
     ### 5. output
@@ -70,7 +72,7 @@ if __name__ == '__main__':
     
     metrics.to_csv("../output/metrics.csv", sep = "^", index = False)
     
-    # models
+    # saving models
     pickle.dump(log_reg, open("../output/models/logistic_regression_model.sav", "wb"))
     pickle.dump(random_forest, open("../output/models/random_forest_model.sav", "wb"))
     pickle.dump(xg_boost, open("../output/models/xg_boost_model.sav", "wb"))
