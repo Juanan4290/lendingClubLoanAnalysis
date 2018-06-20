@@ -124,6 +124,20 @@ requests.post("http://0.0.0.0:8000/predict",
 ]
 ```
 The meaning of each field can be found in the __`data/features_dict.xlsx`__ data dictionary file or in the __`doc/01-getting_and_cleaning_data.ipynb`__ notebook.
+
+And this is the response of the API in the example above:
+```
+[
+  {
+    "id": 166105,
+    "logit": 0.2610819251,
+    "rf": 0.1888843702,
+    "xg": 0.3054217696
+  }
+]
+```
+Where __`id`__ is the ID of the loan and __`logit`__, __`rf`__ and __`xg`__ are the scores of the logistic regression, random forest and xg boost models respectively.
+
 ## About the author:
 
 __Juan Antonio Morales__ Data Scientist at Idealista/Data
