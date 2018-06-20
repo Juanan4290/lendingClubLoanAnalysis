@@ -28,7 +28,7 @@ __Programming lenguages__:
 
 - __Linux shell__: Shell was used mainly to manage files and run scripts.
 - __R__: It was used as a first quick approach to the project and to perform some hypothesis tests.
-- __Python__: It was used for the Exploratory Data Analysis and the modelling phase. __Jupyter Notebooks__ were used as first exploration to the data and to the model hyperparametrizations over the sample data set. __Spyder__ IDE was used for souce code implementation. Python was used to deploy prediction system in production as API.
+- __Python__ for the Exploratory Data Analysis and the modelling phase. __Jupyter Notebooks__ were used as first exploration to the data and to the model hyperparametrizations over the sample data set and __Spyder__ IDE for souce code implementation. Python was also used to deploy prediction system as API. __Anaconda__ distribution was used for creating workflows and keeping the dependencies separated out.
 
 __Main Libraries__:
 
@@ -40,16 +40,20 @@ __Main Libraries__:
 - `flask` and `gunicorn`: to deploy Machine Learning models in Production as API.
 
 ## How to run this analysis
+__1. Creating a virtual environment with Anaconda__ (using _environment.yml_):
+```
+conda env create -f environment.yml -n environmentName
+```
 
-__Cleaning and processing data__ (setting local path files):
+__2. Cleaning and processing data__ (setting local path files):
 ```
 python src/cleaning_data.py
 ```
-__Training new data__:
+__3. Training new data__:
 ```
 python src/main.py
 ```
-__Querying via API__:
+__4. Querying via API__:
 
 - Run the API locally:
 ```
@@ -61,6 +65,10 @@ requests.post("http://0.0.0.0:8000/predict",
               data = json.dumps(new_data),
               headers = {'Content-Type': 'application/json',
                          'Accept': 'application/json'}).json()
+```
+- This could be an example of input json to call the API:
+```
+aquí hay que poner un ejemplo del json
 ```
 
 ## About the author:
