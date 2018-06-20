@@ -68,8 +68,75 @@ requests.post("http://0.0.0.0:8000/predict",
 ```
 - This could be an example of input json to call the API:
 ```
-aquí hay que poner un ejemplo del json
+[
+  {
+    "addr_state": "NM",
+    "annual_inc": 50000.0,
+    "application_type": "Individual",
+    "avg_cur_bal": 27505.0,
+    "bc_open_to_buy": 1312.0,
+    "bc_util": 62.5,
+    "delinq_2yrs": 0.0,
+    "delinq_amnt": 0.0,
+    "disbursement_method": "Cash",
+    "dti": 12.34,
+    "emp_length": "10+ years",
+    "emp_title": "him specialist ii",
+    "fico_range_high": 689.0,
+    "fico_range_low": 685.0,
+    "funded_amnt": 15000.0,
+    "funded_amnt_inv": 15000.0,
+    "grade": "C",
+    "home_ownership": "MORTGAGE",
+    "id": 166105,
+    "initial_list_status": "w",
+    "installment": 517.34,
+    "int_rate": 14.64,
+    "loan_amnt": 15000.0,
+    "mort_acc": 3.0,
+    "num_accts_ever_120_pd": 0.0,
+    "num_bc_sats": 1.0,
+    "num_bc_tl": 1.0,
+    "num_il_tl": 13.0,
+    "num_op_rev_tl": 4.0,
+    "num_rev_accts": 4.0,
+    "num_rev_tl_bal_gt_0": 2.0,
+    "num_sats": 9.0,
+    "open_acc": 9.0,
+    "pct_tl_nvr_dlq": 90.0,
+    "percent_bc_gt_75": 0.0,
+    "pub_rec": 0.0,
+    "pub_rec_bankruptcies": 0.0,
+    "purpose": "debt_consolidation",
+    "revol_bal": 2273.0,
+    "revol_util": 34.4,
+    "sub_grade": "C3",
+    "tax_liens": 0.0,
+    "term": " 36 months",
+    "tot_coll_amt": 101.0,
+    "tot_hi_cred_lim": 260757.0,
+    "total_bal_ex_mort": 35822.0,
+    "total_bc_limit": 3500.0,
+    "total_il_high_credit_limit": 32556.0,
+    "verification_status": "Source Verified",
+    "zip_code": "870xx"
+  }
+]
 ```
+The meaning of each field can be found in the __`data/features_dict.xlsx`__ data dictionary file or in the __`doc/01-getting_and_cleaning_data.ipynb`__ notebook.
+
+And this is the response of the API in the example above:
+```
+[
+  {
+    "id": 166105,
+    "logit": 0.2610819251,
+    "rf": 0.1888843702,
+    "xg": 0.3054217696
+  }
+]
+```
+Where __`id`__ is the ID of the loan and __`logit`__, __`rf`__ and __`xg`__ are the scores of the logistic regression, random forest and xg boost models respectively.
 
 ## About the author:
 
@@ -77,4 +144,4 @@ __Juan Antonio Morales__ Data Scientist at Idealista/Data
 * https://es.linkedin.com/in/juan-antonio-morales-jiménez-4052593b
 * juanan4290@gmail.com
 
-_“You can have data without information, but you cannot have information without data.”_ – Daniel Keys Moran
+_“All models are wrong but some are useful”_ – George Box
