@@ -144,4 +144,4 @@ __Juan Antonio Morales__ Data Scientist at Idealista/Data
 * https://es.linkedin.com/in/juan-antonio-morales-jiménez-4052593b
 * juanan4290@gmail.com
 
-_“You can have data without information, but you cannot have information without data.”_ – Daniel Keys Moran
+_“All models are wrong but some are useful”_ – George Box
