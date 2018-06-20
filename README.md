@@ -123,7 +123,7 @@ requests.post("http://0.0.0.0:8000/predict",
   }
 ]
 ```
-The meaning of each field can be found in the __`data/features_dict.xlsx`__ data dictionary file.
+The meaning of each field can be found in the __`data/features_dict.xlsx`__ data dictionary file or in the __`doc/01-getting_and_cleaning_data.ipynb`__ notebook.
 ## About the author:
 
 __Juan Antonio Morales__ Data Scientist at Idealista/Data
