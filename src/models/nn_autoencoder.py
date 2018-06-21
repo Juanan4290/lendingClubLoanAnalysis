@@ -146,7 +146,8 @@ def nn_autoencoder(data, n_hidden_1, n_hidden_2, epochs, batch_size, learning_ra
     x_encoded = pd.DataFrame(X_encoded[0])
     
     # train/test split
-    X_train, X_test, y_train, y_test = train_test_split(x_encoded, y, test_size=0.8)
+    X_train, X_test, y_train, y_test = train_test_split(x_encoded, y, test_size=0.2,
+                                                        random_state = 4290)
     log_reg = LogisticRegression(C=1000)
     log_reg.fit(X_train, y_train)
     

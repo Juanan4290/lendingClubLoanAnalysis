@@ -32,7 +32,8 @@ def random_forest(data):
     X = data.loc[:, data.columns!='loan_status']
     y = data['loan_status']
     
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2,
+                                                        random_state = 4290)
     
     ### model
     print("Fitting random forest...")
