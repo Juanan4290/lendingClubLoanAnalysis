@@ -11,3 +11,4 @@ doc/.ipynb_checkpoints/
 src/__pycache__/
 .Rproj.user
 bin
+visualization/.ipynb_checkpoints/
