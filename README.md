@@ -21,6 +21,7 @@ The organization of the repository is divided into the following folders:
 - __src__: source code scripts. Notebooks are used as first exploration to the data and to the model hyperparametrizations and first results. But once the code guidelines was more or less clear, it is implemented in the main program.
 - __data__: Lending Club data dictionary and features we have decided to keep for feeding the models. The dataset is not available in this folder due to the data is too big. 
 - __output__: metrics of the model and model objects.
+- __dashboard__ with the main results of the models.
 
 ## About the methodology
 
@@ -28,7 +29,8 @@ __Programming lenguages__:
 
 - __Linux shell__: Shell was used mainly to manage files and run scripts.
 - __R__: It was used as a first quick approach to the project and to perform some hypothesis tests.
-- __Python__ for the Exploratory Data Analysis and the modelling phase. __Jupyter Notebooks__ were used as first exploration to the data and to the model hyperparametrizations over the sample data set and __Spyder__ IDE for souce code implementation. Python was also used to deploy prediction system as API. __Anaconda__ distribution was used for creating workflows and keeping the dependencies separated out.
+- __Python__ for the Exploratory Data Analysis and the modeling phase. __Jupyter Notebooks__ were used as first exploration to the data and to the model hyperparametrizations over the sample data set and __Spyder__ IDE for source code implementation. Python was also used to deploy prediction system as API. __Anaconda__ distribution was used for creating workflows and keeping the dependencies separated out.
+- __Tableau__ for visualization main results of the models.
 
 __Main Libraries__:
 
@@ -140,7 +142,7 @@ Where __`id`__ is the ID of the loan and __`logit`__, __`rf`__ and __`xg`__ are 
 
 ## About the author:
 
-__Juan Antonio Morales__ Data Scientist at Idealista/Data
+__Juan Antonio Morales__ Data Scientist
 * https://es.linkedin.com/in/juan-antonio-morales-jiménez-4052593b
 * juanan4290@gmail.com
 
