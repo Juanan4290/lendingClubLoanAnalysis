@@ -142,7 +142,7 @@ Where __`id`__ is the ID of the loan and __`logit`__, __`rf`__ and __`xg`__ are 
 
 ## About the author:
 
-__Juan Antonio Morales__ Data Scientist
+__Juan Antonio Morales__ Data Scientist at `idealista/data`
 * https://es.linkedin.com/in/juan-antonio-morales-jiménez-4052593b
 * juanan4290@gmail.com
 
